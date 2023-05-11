@@ -2,6 +2,8 @@ package config
 
 import (
 	"log"
+	"os"
+	"strconv"
 
 	"github.com/deepfake-db/internal/models"
 	"github.com/ethereum/go-ethereum/ethclient"
@@ -23,6 +25,28 @@ var Client *ethclient.Client
 var DB *gorm.DB
 
 func LoadConfig() {
+	mode := os.Getenv("MODE")
+
+	if mode == "production" {
+		port, err := strconv.Atoi(os.Getenv("PORT"))
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		assertionLiveness, err := strconv.Atoi(os.Getenv("ASSERTION_LIVENESS"))
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		DbConfig = Config{
+			NodeURL:                 os.Getenv("NODE_URL"),
+			Port:                    port,
+			DeepfakeContractAddress: os.Getenv("DEEPFAKE_CONTRACT_ADDRESS"),
+			AssertionLiveness:       int64(assertionLiveness),
+		}
+		return
+	}
+
 	viper.AddConfigPath("../../")
 	viper.SetConfigFile(".env")
 	viper.SetConfigType("env")
