@@ -1,5 +1,6 @@
 # Deepfake detector DB
 
+Base URL: https://stark-sea-51933.herokuapp.com
 API endpoints: 
 
 ### GET     /api/assertions
