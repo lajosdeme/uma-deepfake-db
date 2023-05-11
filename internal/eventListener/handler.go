@@ -18,15 +18,13 @@ import (
 
 var (
 	imageAsserted          string = crypto.Keccak256Hash([]byte("ImageAsserted(bytes32,string,address,bytes32)")).Hex()
-	imageAssertionResolved string = crypto.Keccak256Hash([]byte("ImageAssertionResolved(bytes,string,address,bytes32)")).Hex()
+	imageAssertionResolved string = crypto.Keccak256Hash([]byte("ImageAssertionResolved(bytes32,string,address,bytes32)")).Hex()
 )
 
 func HandleEvents(client *ethclient.Client, l types.Log) {
 	eventSig := l.Topics[0].Hex()
 
 	fmt.Println("event logged: ", eventSig)
-
-	fmt.Println("image asserted id: ", imageAsserted)
 	switch eventSig {
 	case imageAsserted:
 		go handleImageAssertion(config.DB, l)
@@ -80,12 +78,12 @@ func handleImageAssertion(db *gorm.DB, l types.Log) {
 
 func handleImageAssertionResolved(db *gorm.DB, l types.Log) {
 	var id [32]byte
-	copy(id[:], l.Topics[1].Bytes()[:32])
+	copy(id[:], l.Topics[3].Bytes()[:32])
 	idHex := hexutil.Encode(id[:])
 
 	// get event and opdate in DB
 	var localAssertion models.ImageAssertion
-	db.First(&localAssertion, "AssertionId = ?", idHex)
+	db.First(&localAssertion, "assertion_id = ?", idHex)
 
 	db.Model(&localAssertion).Updates(models.ImageAssertion{Resolved: true})
 }
