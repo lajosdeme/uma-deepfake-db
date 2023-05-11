@@ -16,7 +16,7 @@ type Config struct {
 	NodeURL                 string `mapstructure:"NODE_URL"`
 	Port                    int    `mapstructure:"PORT"`
 	DeepfakeContractAddress string `mapstructure:"DEEPFAKE_CONTRACT_ADDRESS"`
-	OOV3Address             string `mapstructure:"OOV3_ADDRESS"`
+	OOV3Address             string `mapstructure:"OOV3_CONTRACT_ADDRESS"`
 	AssertionLiveness       int64  `mapstructure:"ASSERTION_LIVENESS"`
 }
 

@@ -14,4 +14,5 @@ type ImageAssertion struct {
 	Seen         bool
 	LoggedAt     int64
 	ResolvableAt int64
+	Disputed     bool
 }

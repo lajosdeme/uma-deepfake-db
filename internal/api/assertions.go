@@ -62,7 +62,7 @@ func GetNotifications(c *gin.Context) {
 	asserter := c.Params.ByName("asserter")
 	fmt.Println("asserter: ", asserter)
 
-	result := queryBuilder.Model(&models.ImageAssertion{}).Where("Asserter = ?", asserter).Where("Seen = ?", false).Find(&assertions)
+	result := queryBuilder.Model(&models.ImageAssertion{}).Where("Asserter = ?", asserter).Where("Seen = ?", false).Where("Disputed = ?", false).Find(&assertions)
 
 	fmt.Println("assertions length: ", len(assertions))
 	if result.Error != nil {
@@ -77,9 +77,6 @@ func GetNotifications(c *gin.Context) {
 	var resolvableAssertions []models.ImageAssertion
 
 	for _, assertion := range assertions {
-		fmt.Println("time now: ", t)
-		fmt.Println("resolvable at: ", assertion.ResolvableAt)
-		fmt.Println(assertion.ResolvableAt < t)
 		if assertion.ResolvableAt < t {
 			resolvableAssertions = append(resolvableAssertions, assertion)
 		}

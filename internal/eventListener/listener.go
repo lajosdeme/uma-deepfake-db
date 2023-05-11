@@ -14,6 +14,7 @@ import (
 func Listen() {
 	detectorAddr := common.HexToAddress(config.DbConfig.DeepfakeContractAddress)
 	ooAddr := common.HexToAddress(config.DbConfig.OOV3Address)
+	fmt.Println("OO ADDR: ", ooAddr)
 	query := ethereum.FilterQuery{
 		Addresses: []common.Address{detectorAddr, ooAddr},
 	}
