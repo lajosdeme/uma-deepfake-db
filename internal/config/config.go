@@ -16,6 +16,7 @@ type Config struct {
 	NodeURL                 string `mapstructure:"NODE_URL"`
 	Port                    int    `mapstructure:"PORT"`
 	DeepfakeContractAddress string `mapstructure:"DEEPFAKE_CONTRACT_ADDRESS"`
+	OOV3Address             string `mapstructure:"OOV3_ADDRESS"`
 	AssertionLiveness       int64  `mapstructure:"ASSERTION_LIVENESS"`
 }
 
@@ -42,6 +43,7 @@ func LoadConfig() {
 			NodeURL:                 os.Getenv("NODE_URL"),
 			Port:                    port,
 			DeepfakeContractAddress: os.Getenv("DEEPFAKE_CONTRACT_ADDRESS"),
+			OOV3Address:             os.Getenv("OOV3_ADDRESS"),
 			AssertionLiveness:       int64(assertionLiveness),
 		}
 		return

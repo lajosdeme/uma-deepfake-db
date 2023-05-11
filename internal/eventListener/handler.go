@@ -85,7 +85,7 @@ func handleImageAssertionResolved(db *gorm.DB, l types.Log) {
 
 	// get event and opdate in DB
 	var localAssertion models.ImageAssertion
-	db.First(&localAssertion, "ImageId = ?", idHex)
+	db.First(&localAssertion, "AssertionId = ?", idHex)
 
 	db.Model(&localAssertion).Updates(models.ImageAssertion{Resolved: true})
 }
