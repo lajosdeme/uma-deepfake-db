@@ -35,6 +35,8 @@ func ConfigRouter() *gin.Engine {
 	api.GET("/assertions", dbapi.GetAssertions)
 	api.GET("/notifications/:asserter", dbapi.GetNotifications)
 	api.POST("/notifications", dbapi.SetNotificationSeen)
+
+	api.GET("/ping", dbapi.Ping)
 	return r
 }
 

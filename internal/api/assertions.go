@@ -12,6 +12,10 @@ import (
 	"gorm.io/gorm"
 )
 
+func Ping(c *gin.Context) {
+	c.String(200, "pong")
+}
+
 func GetAssertions(c *gin.Context) {
 	pagination, query := utils.ProcessQuery(c)
 	offset := (pagination.Page - 1) * pagination.Limit
